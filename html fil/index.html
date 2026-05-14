@@ -256,6 +256,95 @@ footer{background:var(--navy);color:rgba(255,255,255,.8);padding:80px;display:gr
 /* Blueprint SVG helper */
 .bp{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 
+/* HAMBURGER */
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px;z-index:1100}
+.hamburger span{display:block;width:24px;height:1.5px;background:var(--navy);transition:all .3s}
+.hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+.mobile-menu{display:none;position:fixed;inset:0;background:var(--page);z-index:1050;flex-direction:column;justify-content:center;align-items:center;gap:0;padding:80px 40px 40px}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-family:'Playfair Display',serif;font-size:28px;font-weight:400;color:var(--navy);text-decoration:none;padding:16px 0;border-bottom:1px solid rgba(26,45,90,.08);width:100%;text-align:center;transition:color .2s}
+.mobile-menu a:hover{color:var(--sky)}
+.mobile-menu .mob-cta{background:var(--navy);color:var(--white);padding:16px 40px;margin-top:24px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;border:none;font-weight:500;width:100%;text-align:center}
+
+@media(max-width:768px){
+  body{cursor:auto}
+  .cursor,.cursor-ring{display:none}
+
+  /* Banner */
+  .jubilee-bar{height:36px}
+  .jubilee-inner{gap:10px}
+  .jubilee-text:last-of-type{display:none}
+  .jubilee-star:last-child{display:none}
+  .jubilee-badge{font-size:11px;padding:3px 10px}
+  .jubilee-year{font-size:13px}
+
+  /* Nav */
+  nav{top:36px;padding:0 24px;height:60px}
+  nav.scrolled{height:56px}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+
+  /* Hero — stack vertically */
+  .hero{grid-template-columns:1fr;min-height:100svh}
+  .hero-left{padding:120px 24px 48px;order:1}
+  .hero-right{order:2;height:60vw;min-height:260px;max-height:400px}
+  .hero-h1{font-size:clamp(36px,9vw,52px)}
+  .hero-sub{font-size:15px;margin-bottom:36px}
+  .hero-stats-row{gap:28px;margin-top:40px;flex-wrap:wrap}
+  .hero-actions{flex-direction:column;align-items:flex-start;gap:16px}
+
+  /* Trust */
+  .trust{padding:40px 24px}
+  .trust-row{flex-wrap:wrap;gap:24px;justify-content:flex-start}
+  .t-sep{display:none}
+  .t-badge{width:calc(50% - 12px)}
+
+  /* About */
+  .about{padding:72px 24px}
+  .about-inner{grid-template-columns:1fr;gap:48px}
+  .about-chip{left:0;bottom:16px}
+  .about-dot-pattern{display:none}
+
+  /* Projects */
+  .projects{padding:72px 24px}
+  .proj-hdr{flex-direction:column;align-items:flex-start;gap:16px;margin-bottom:36px}
+  .proj-card{width:100%;margin-right:0}
+  .proj-img{height:64vw;min-height:220px}
+
+  /* Services */
+  .services{padding:72px 24px}
+  .srv-grid{grid-template-columns:1fr;gap:2px}
+  .srv-card{padding:36px 28px}
+
+  /* Before/After */
+  .ba{padding:72px 24px}
+  .ba-grid{grid-template-columns:1fr;gap:40px}
+
+  /* Team */
+  .team{padding:72px 24px}
+  .team-grid{grid-template-columns:1fr 1fr;gap:16px}
+
+  /* Sustainability */
+  .sustain{padding:72px 24px}
+  .sust-inner{grid-template-columns:1fr;gap:48px}
+
+  /* Process */
+  .process{padding:72px 24px}
+  .proc-steps{grid-template-columns:1fr;gap:2px}
+  .proc-step:not(:last-child)::after{display:none}
+  .proc-step{padding:36px 28px}
+
+  /* CTA */
+  .cta{padding:80px 24px}
+  .cta-acts{flex-direction:column;gap:20px}
+
+  /* Footer */
+  footer{grid-template-columns:1fr;gap:40px;padding:56px 24px}
+  .f-bottom{padding:16px 24px;flex-direction:column;gap:8px;text-align:center}
+}
+
 /* Real image helpers */
 .fill-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 .proj-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s cubic-bezier(.25,.46,.45,.94)}
@@ -317,7 +406,18 @@ footer{background:var(--navy);color:rgba(255,255,255,.8);padding:80px;display:gr
     <div class="nav-item"><a href="#" class="nav-link">Nyheter</a></div>
     <a href="#kontakt" class="nav-cta">Kontakta oss</a>
   </div>
+  <button class="hamburger" id="hamburger" aria-label="Meny">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#om" onclick="closeMob()">Om Nicopia</a>
+  <a href="#tjanster" onclick="closeMob()">Tjänster</a>
+  <a href="#projekt" onclick="closeMob()">Projekt</a>
+  <a href="#hallbarhet" onclick="closeMob()">Hållbarhet</a>
+  <a href="#kontakt" class="mob-cta" onclick="closeMob()">Kontakta oss</a>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -654,6 +754,19 @@ footer{background:var(--navy);color:rgba(255,255,255,.8);padding:80px;display:gr
 <div class="f-bottom"><p>© 2026 Nicopia Bygg AB · Org.nr 556XXX-XXXX · F-skattsedel</p><p>Nyköping</p></div>
 
 <script>
+/* HAMBURGARMENY */
+function closeMob(){
+  document.getElementById('mobileMenu').classList.remove('open');
+  document.getElementById('hamburger').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.getElementById('hamburger').addEventListener('click',function(){
+  this.classList.toggle('open');
+  const m=document.getElementById('mobileMenu');
+  m.classList.toggle('open');
+  document.body.style.overflow=m.classList.contains('open')?'hidden':'';
+});
+
 /* KARUSELL */
 (function(){
   const track = document.getElementById('projTrack');
@@ -661,26 +774,33 @@ footer{background:var(--navy);color:rgba(255,255,255,.8);padding:80px;display:gr
   const dotsWrap = document.getElementById('projDots');
   const btnPrev = document.getElementById('projPrev');
   const btnNext = document.getElementById('projNext');
-  const perView = 2;
   const total = cards.length;
-  const steps = Math.ceil(total / perView);
   let cur = 0;
 
-  dotsWrap.innerHTML = '';
-  for(let i = 0; i < steps; i++){
-    const d = document.createElement('button');
-    d.className = 'proj-dot' + (i === 0 ? ' active' : '');
-    d.addEventListener('click', () => goTo(i));
-    dotsWrap.appendChild(d);
+  function perView(){ return window.innerWidth <= 768 ? 1 : 2; }
+  function steps(){ return Math.ceil(total / perView()); }
+
+  function buildDots(){
+    dotsWrap.innerHTML = '';
+    for(let i = 0; i < steps(); i++){
+      const d = document.createElement('button');
+      d.className = 'proj-dot' + (i === cur ? ' active' : '');
+      d.addEventListener('click', () => goTo(i));
+      dotsWrap.appendChild(d);
+    }
   }
 
   function goTo(idx){
-    cur = (idx + steps) % steps;
-    const cardW = cards[0].offsetWidth + 24;
-    track.style.transform = `translateX(-${cur * perView * cardW}px)`;
+    cur = ((idx % steps()) + steps()) % steps();
+    const pv = perView();
+    const gap = 24;
+    const cardW = cards[0].offsetWidth + (pv > 1 ? gap : 0);
+    track.style.transform = `translateX(-${cur * pv * cardW}px)`;
     dotsWrap.querySelectorAll('.proj-dot').forEach((d,i) => d.classList.toggle('active', i === cur));
   }
 
+  buildDots();
+  window.addEventListener('resize', () => { cur = 0; buildDots(); goTo(0); });
   btnPrev.addEventListener('click', () => goTo(cur - 1));
   btnNext.addEventListener('click', () => goTo(cur + 1));
 
@@ -688,7 +808,7 @@ footer{background:var(--navy);color:rgba(255,255,255,.8);padding:80px;display:gr
   track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, {passive:true});
   track.addEventListener('touchend', e => {
     const dx = e.changedTouches[0].clientX - startX;
-    if(Math.abs(dx) > 50) goTo(dx < 0 ? cur + 1 : cur - 1);
+    if(Math.abs(dx) > 40) goTo(dx < 0 ? cur + 1 : cur - 1);
   });
 })();
 </script>
